@@ -23,10 +23,10 @@ Material:
     m_Floats:
     - Boolean_F4C16A02: 1
     - Vector1_4DB73C02: 1.33
-    - Vector1_6EC534E2: 1.21
+    - Vector1_6EC534E2: 1.68
     - Vector1_B7F58CC5: 0.37
     - Vector1_C0D87D5: 1000
-    - Vector1_E8D8DF27: 0.914
+    - Vector1_E8D8DF27: 1
     - Vector1_FC2AA528: -1.42
     m_Colors:
     - Color_2C712E32: {r: 0.19687188, g: 0.45283014, b: 0.17301527, a: 0}
