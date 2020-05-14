@@ -2,9 +2,9 @@
 using UnityEngine.Rendering;
 using UnityEngine.Rendering.Universal;
 
-public class OutlineFeature : ScriptableRendererFeature
+public class PixelateFeature : ScriptableRendererFeature
 {
-    class OutlinePass : ScriptableRenderPass
+    class PixelatePass : ScriptableRenderPass
     {
         private RenderTargetIdentifier source { get; set; }
         private RenderTargetHandle destination { get; set; }
@@ -17,7 +17,7 @@ public class OutlineFeature : ScriptableRendererFeature
             this.destination = destination;
         }
 
-        public OutlinePass(Material outlineMaterial)
+        public PixelatePass(Material outlineMaterial)
         {
             this.outlineMaterial = outlineMaterial;
         }
@@ -40,7 +40,7 @@ public class OutlineFeature : ScriptableRendererFeature
         // You don't have to call ScriptableRenderContext.submit, the render pipeline will call it at specific points in the pipeline.
         public override void Execute(ScriptableRenderContext context, ref RenderingData renderingData)
         {
-            CommandBuffer cmd = CommandBufferPool.Get("Outline Pass");
+            CommandBuffer cmd = CommandBufferPool.Get("Pixelate Pass");
 
             RenderTextureDescriptor opaqueDescriptor = renderingData.cameraData.cameraTargetDescriptor;
             opaqueDescriptor.depthBufferBits = 0;
@@ -68,20 +68,20 @@ public class OutlineFeature : ScriptableRendererFeature
     }
 
     [System.Serializable]
-    public class OutlineSettings
+    public class PixelateSettings
     {
         public Material outlineMaterial = null;
     }
 
-    public OutlineSettings settings = new OutlineSettings();
-    OutlinePass outlinePass;
+    public PixelateSettings settings = new PixelateSettings();
+    PixelatePass outlinePass;
     RenderTargetHandle outlineTexture;
 
     public override void Create()
     {
-        outlinePass = new OutlinePass(settings.outlineMaterial);
+        outlinePass = new PixelatePass(settings.outlineMaterial);
         outlinePass.renderPassEvent = RenderPassEvent.AfterRenderingTransparents;
-        outlineTexture.Init("_OutlineTexture");
+        outlineTexture.Init("_PixelateTexture");
     }
 
     // Here you can inject one or multiple render passes in the renderer.
@@ -90,7 +90,7 @@ public class OutlineFeature : ScriptableRendererFeature
     {
         if (settings.outlineMaterial == null)
         {
-            Debug.LogWarningFormat("Missing Outline Material");
+            Debug.LogWarningFormat("Missing Pixelate Material");
             return;
         }
         outlinePass.Setup(renderer.cameraColorTarget, RenderTargetHandle.CameraTarget);
